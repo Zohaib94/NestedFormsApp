@@ -1,0 +1,34 @@
+<%= nested_form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <%= f.fields_for :images do |img_form| %>
+    <div class="field">
+      <%= img_form.label :attachment %>
+      <%= img_form.file_field :attachment %>
+      <%= img_form.link_to_remove "Remove image" %>
+    </div>
+  <% end %>
+  <p><%= f.link_to_add "Add another image", :images %></p>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
